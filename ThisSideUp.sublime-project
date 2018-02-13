@@ -1,0 +1,14 @@
+{
+    "folders":
+    [
+        {
+            "file_include_patterns": ["*.cs"],
+            "path": "Assets/Scripts"
+        },
+        {
+            "file_include_patterns": ["*.shader"],
+            "path": "Assets/Shaders"
+        }
+    ],
+    "solution_file": "ThisSideUp.sln"
+}
