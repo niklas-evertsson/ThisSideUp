@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Camera))]
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
     public float gravity = 20.0f;
     public float gravityAlignementSpeed = 2.0f;
     public float jumpSpeed = 10.0f;
-    public float lookSpeed = 5.0f;
+    public float lookSpeed = 2.0f;
     public float moveSpeed = 20.0f;
 
     private Camera playerCamera;
@@ -26,7 +27,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // Mouse player turning
-        transform.Rotate(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
+        float turnAmount = Input.GetAxis("Mouse X") + Input.GetAxis("Turning");
+        transform.Rotate(0, turnAmount * lookSpeed, 0);
 
         // Mouse camera pitch
         cameraPitch += Input.GetAxis("Mouse Y") * -lookSpeed;
