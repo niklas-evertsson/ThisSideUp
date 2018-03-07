@@ -5,6 +5,8 @@ using UnityEngine;
 public class PortalTeleporter : MonoBehaviour
 {
     public Transform player;
+    public Transform myPortal;
+    public Transform otherPortal;
     public Transform reciever;
 
     private bool playerIsOverlapping;
@@ -17,20 +19,24 @@ public class PortalTeleporter : MonoBehaviour
 
 	void Update()
     {
+        // Check if player is inside the collider
         if(playerIsOverlapping)
         {
-            Vector3 portalToPlayer = player.position - myTransform.position;
-            float dotProduct = Vector3.Dot(myTransform.forward, portalToPlayer);
-
-            if(dotProduct < 0f)
+            // Player position relative to this teleporter
+            Vector3 localPlayerPosition = myTransform.InverseTransformPoint(player.position);
+            // If player is behind the teleporter
+            if(localPlayerPosition.z < 0)
             {
-//                float rotationDifference = -Quaternion.Angle(myTransform.rotation, reciever.rotation);
-                float rotationDifference = Vector3.SignedAngle(myTransform.forward, reciever.forward, Vector3.up);
-                rotationDifference += 180;
-                player.Rotate(Vector3.up, rotationDifference);
+                // Invert X so that the left/right position in the portal matches after rotation
+                localPlayerPosition.x = -localPlayerPosition.x;
 
-                Vector3 positionOffset = Quaternion.Euler(0f, rotationDifference, 0f) * portalToPlayer;
-                player.position = reciever.position + positionOffset;
+                // Player forward direction relative to this portal
+                Vector3 localPlayerForward = myPortal.InverseTransformDirection(player.forward);
+
+                // Set player position relative to reciever
+                player.position = reciever.TransformPoint(localPlayerPosition);
+                // Set player position relative to other Portal
+                player.rotation = Quaternion.LookRotation(otherPortal.TransformDirection(localPlayerForward), otherPortal.up);
 
                 playerIsOverlapping = false;
             }
@@ -41,6 +47,7 @@ public class PortalTeleporter : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
+            // Player is inside the collider
             playerIsOverlapping = true;
         }
     }
@@ -49,6 +56,7 @@ public class PortalTeleporter : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
+            // Player has left the collider
             playerIsOverlapping = false;
         }
     }

@@ -31,16 +31,8 @@ public class PortalCamera : MonoBehaviour
 
 	void Update()
     {
-        // Get the angular difference between the portals as a rotation
-        float portalAngleDifference = Vector3.SignedAngle(portal.forward, otherPortal.forward, Vector3.up);
-        Quaternion portalRotationDifference = Quaternion.AngleAxis(-portalAngleDifference, Vector3.up);
-
-        // Position this camera based on the players relative position to the other portal
-        Vector3 playerOffsetFromPortal = portalRotationDifference * (playerCamera.position - otherPortal.position);
-        myTransform.position = portal.position + playerOffsetFromPortal;
-
-        // Match player look rotation
-        Vector3 newCameraDirection = portalRotationDifference * playerCamera.forward;
-        myTransform.rotation = Quaternion.LookRotation(newCameraDirection, Vector3.up);
+        // Match player position and rotation relative to the other portal
+        myTransform.localPosition = otherPortal.InverseTransformPoint(playerCamera.position);
+        myTransform.localRotation = Quaternion.LookRotation(otherPortal.InverseTransformDirection(playerCamera.forward));
 	}
 }

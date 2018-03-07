@@ -35,7 +35,8 @@ public class PlayerController : MonoBehaviour
         cameraPitch = Mathf.Clamp(cameraPitch, -90, 90);
         playerCamera.transform.localRotation = Quaternion.Euler(cameraPitch, 0, 0);
 
-//        if (controller.isGrounded)
+        // Replaces controller.IsGrounded because it uses global directions
+        // so it gets confused when you walk on walls and ceilings
         if(controller.collisionFlags != CollisionFlags.None)
         {
             // Get player input for movement
