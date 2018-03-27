@@ -3,61 +3,123 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
-[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(CapsuleCollider))]
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
     public float gravity = 20.0f;
-    public float gravityAlignementSpeed = 2.0f;
+    public float gravityAlignementSpeed = 20.0f;
     public float jumpSpeed = 10.0f;
     public float lookSpeed = 2.0f;
     public float moveSpeed = 20.0f;
 
-    private Camera playerCamera;
-    private CharacterController controller;
-    private float cameraPitch;
-    private Vector3 gravityUp = Vector3.up;
-    private Vector3 lookDirection;
-    private Vector3 moveDirection = Vector3.zero;
+    private const float minGroundNormalY = 0.65f;
+    private const float shellRadius = 0.01f;
+    private bool isGrounded;
+    private float distance;
+    private float lookY;
+    private Camera myCamera;
+    private RaycastHit[] hitBuffer;
+    private Rigidbody myRigidbody;
+    private Transform myTransform;
+    private Vector3 desiredMove;
+    private Vector3 desiredJump;
+    private Vector3 gravityUp;
 
 	void Start()
     {
-        playerCamera = GetComponentInChildren<Camera>();
-        controller = GetComponent<CharacterController>();
+        myCamera = GetComponentInChildren<Camera>();
+        myRigidbody = GetComponent<Rigidbody>();
+        myTransform = GetComponent<Transform>();
+        gravityUp = myTransform.up;
 	}
-    void Update()
+
+	void Update()
+    {
+        Look();
+	}
+
+    void FixedUpdate()
+    {
+        if(isGrounded)
+        {
+            GetInput();
+        }
+        isGrounded = false;
+
+        ApplyGravity();
+
+        MovePlayer(desiredMove * Time.deltaTime);
+        MovePlayer(desiredJump * Time.deltaTime);
+    }
+
+    void ApplyGravity()
+    {
+        // Align player to gravity
+        Quaternion gravityRotation = Quaternion.FromToRotation(myTransform.up, gravityUp) * myTransform.rotation;
+        myTransform.rotation = Quaternion.Slerp(myTransform.rotation, gravityRotation, gravityAlignementSpeed * Time.deltaTime);
+
+        // Apply gravity
+        desiredJump -= gravity * gravityUp * Time.deltaTime;
+    }
+
+    void GetInput()
+    {
+        var input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
+        // Prevents player from walking faster diagonally
+        if (input.sqrMagnitude > 1)
+        {
+            input.Normalize();
+        }
+
+        input *= moveSpeed;
+
+        if(Input.GetButtonDown("Jump"))
+        {
+            input.y = jumpSpeed;
+        }
+
+        desiredJump = myTransform.up * input.y;
+        desiredMove = (myTransform.right * input.x) + (myTransform.forward * input.z);
+    }
+
+    void Look()
     {
         // Mouse player turning
-        float turnAmount = Input.GetAxis("Mouse X") + Input.GetAxis("Turning");
-        transform.Rotate(0, turnAmount * lookSpeed, 0);
+        float lookX = Input.GetAxis("Mouse X") + Input.GetAxis("Turning");
+        myTransform.Rotate(0, lookX * lookSpeed, 0);
 
         // Mouse camera pitch
-        cameraPitch += Input.GetAxis("Mouse Y") * -lookSpeed;
-        cameraPitch = Mathf.Clamp(cameraPitch, -90, 90);
-        playerCamera.transform.localRotation = Quaternion.Euler(cameraPitch, 0, 0);
+        lookY -= Input.GetAxis("Mouse Y") * lookSpeed;
+        lookY = Mathf.Clamp(lookY, -90, 90);
+        myCamera.transform.localRotation = Quaternion.Euler(lookY, 0, 0);
+    }
 
-        // Replaces controller.IsGrounded because it uses global directions
-        // so it gets confused when you walk on walls and ceilings
-        if(controller.collisionFlags != CollisionFlags.None)
+    void MovePlayer(Vector3 velocity)
+    {
+        distance = velocity.magnitude;
+        hitBuffer = myRigidbody.SweepTestAll(velocity, distance + shellRadius, QueryTriggerInteraction.Ignore);
+        for(int i = 0; i < hitBuffer.Length; i++)
         {
-            // Get player input for movement
-            moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-            moveDirection = transform.TransformDirection(moveDirection);
-            moveDirection *= moveSpeed;
-            if (Input.GetButton("Jump"))
+            Vector3 currentNormal = hitBuffer[i].normal;
+            isGrounded |= Vector3.Dot(gravityUp, currentNormal) > minGroundNormalY;
+
+            float projection = Vector3.Dot(velocity, currentNormal);
+            if(projection < -0.01f)
             {
-                moveDirection += gravityUp * jumpSpeed;
+                velocity -= projection * currentNormal;
+            }
+
+            float modifiedDistance = hitBuffer[i].distance - shellRadius;
+            if(modifiedDistance < distance)
+            {
+                distance = modifiedDistance;
             }
         }
 
-        // Align player to gravity
-        Quaternion gravityRotation = Quaternion.FromToRotation(transform.up, gravityUp) * transform.rotation;
-        transform.rotation = Quaternion.Slerp(transform.rotation, gravityRotation, gravityAlignementSpeed * Time.deltaTime);
-
-        // Apply gravity
-        moveDirection -= gravityUp * gravity * Time.deltaTime;
-
         // Move player
-        controller.Move(moveDirection * Time.deltaTime);
+        myRigidbody.position += velocity.normalized * distance;
     }
 
     void OnTriggerEnter(Collider other)
