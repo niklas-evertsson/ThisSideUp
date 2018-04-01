@@ -24,18 +24,19 @@ public class PortalTeleporter : MonoBehaviour
         {
             // Player position relative to this teleporter
             Vector3 localPlayerPosition = myTransform.InverseTransformPoint(player.position);
+
             // If player is behind the teleporter
             if(localPlayerPosition.z < 0)
             {
-                // Invert X so that the left/right position in the portal matches after rotation
+                // Invert X and Z to match other portal after rotation
                 localPlayerPosition.x = -localPlayerPosition.x;
+                localPlayerPosition.z = -localPlayerPosition.z;
 
                 // Player forward direction relative to this portal
                 Vector3 localPlayerForward = myPortal.InverseTransformDirection(player.forward);
 
-                // Set player position relative to reciever
+                // Set player position and rotation relative to other portal
                 player.position = reciever.TransformPoint(localPlayerPosition);
-                // Set player position relative to other Portal
                 player.rotation = Quaternion.LookRotation(otherPortal.TransformDirection(localPlayerForward), otherPortal.up);
 
                 playerIsOverlapping = false;
@@ -45,19 +46,13 @@ public class PortalTeleporter : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
-        {
-            // Player is inside the collider
-            playerIsOverlapping = true;
-        }
+        // Player is inside the collider
+        playerIsOverlapping |= other.CompareTag("Player");
     }
 
     void OnTriggerExit(Collider other)
     {
-        if(other.CompareTag("Player"))
-        {
-            // Player has left the collider
-            playerIsOverlapping = false;
-        }
+        // Player has left the collider
+        playerIsOverlapping &= !other.CompareTag("Player");
     }
 }

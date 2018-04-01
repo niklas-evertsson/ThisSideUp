@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: CameraMaterial_A
+  m_Name: CameraMaterial_B 23
   m_Shader: {fileID: 4800000, guid: 597bffe86dc4c4aac89b646cddca18db, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4

@@ -1,14 +1,29 @@
 {
-    "folders":
-    [
-        {
-            "file_include_patterns": ["*.cs"],
-            "path": "Assets/Scripts"
-        },
-        {
-            "file_include_patterns": ["*.shader"],
-            "path": "Assets/Shaders"
-        }
-    ],
-    "solution_file": "ThisSideUp.sln"
+	"build_systems":
+	[
+		{
+			"file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+			"name": "Anaconda Python Builder",
+			"selector": "source.python",
+			"shell_cmd": "\"python\" -u \"$file\""
+		}
+	],
+	"folders":
+	[
+		{
+			"file_include_patterns":
+			[
+				"*.cs"
+			],
+			"path": "Assets/Scripts"
+		},
+		{
+			"file_include_patterns":
+			[
+				"*.shader"
+			],
+			"path": "Assets/Shaders"
+		}
+	],
+	"solution_file": "ThisSideUp.sln"
 }

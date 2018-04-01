@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
     void Look()
     {
         // Mouse player turning
-        float lookX = Input.GetAxis("Mouse X") + Input.GetAxis("Turning");
+        float lookX = Input.GetAxis("Mouse X") + Input.GetAxis("Turning") * 10;
         myTransform.Rotate(0, lookX * lookSpeed, 0);
 
         // Mouse camera pitch

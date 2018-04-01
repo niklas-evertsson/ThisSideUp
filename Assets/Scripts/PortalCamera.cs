@@ -7,7 +7,6 @@ public class PortalCamera : MonoBehaviour
 {
     public Material cameraMaterial;
     public Transform playerCamera;
-    public Transform portal;
     public Transform otherPortal;
 
     private Camera myCamera;
