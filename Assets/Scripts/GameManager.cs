@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [TagSelector]
+    public List<string> teleportables;
+    public PlayerController player;
+
     void Start()
     {
         // Hide and lock cursor to the center of the screen
@@ -12,8 +16,11 @@ public class GameManager : MonoBehaviour
 
 	void Update()
     {
-        if(Input.GetKey("escape"))
+        if(Input.GetKeyDown("escape"))
         {
+            // Disable player input
+            player.inputEnabled = !player.inputEnabled;
+
             // Release the cursor and exit the game
             Cursor.lockState = CursorLockMode.None;
             Application.Quit();

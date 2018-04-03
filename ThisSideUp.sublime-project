@@ -15,6 +15,13 @@
 			[
 				"*.cs"
 			],
+			"path": "Assets/Editor"
+		},
+		{
+			"file_include_patterns":
+			[
+				"*.cs"
+			],
 			"path": "Assets/Scripts"
 		},
 		{

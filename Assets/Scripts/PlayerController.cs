@@ -7,6 +7,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
+    [HideInInspector]
+    public bool inputEnabled = true;
     public float gravity = 20.0f;
     public float gravityAlignementSpeed = 20.0f;
     public float jumpSpeed = 10.0f;
@@ -36,12 +38,15 @@ public class PlayerController : MonoBehaviour
 
 	void Update()
     {
-        Look();
+        if(inputEnabled)
+        {
+            Look();
+        }
 	}
 
     void FixedUpdate()
     {
-        if(isGrounded)
+        if(isGrounded && inputEnabled)
         {
             GetInput();
         }

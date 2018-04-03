@@ -5,7 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Face
-  - RenderPlane
+  - Projectile
   layers:
   - Default
   - TransparentFX

@@ -9,50 +9,58 @@ public class PortalTeleporter : MonoBehaviour
     public Transform otherPortal;
     public Transform reciever;
 
-    private bool playerIsOverlapping;
+    private List<string> myTeleportables;
+    private List<Transform> objectsToTeleport = new List<Transform>();
     private Transform myTransform;
 
     void Start()
     {
+        myTeleportables = FindObjectOfType<GameManager>().teleportables;
         myTransform = GetComponent<Transform>();
     }
 
 	void Update()
     {
-        // Check if player is inside the collider
-        if(playerIsOverlapping)
+        // Check if a portable object is inside the collider
+        if(objectsToTeleport.Count != 0)
         {
-            // Player position relative to this teleporter
-            Vector3 localPlayerPosition = myTransform.InverseTransformPoint(player.position);
-
-            // If player is behind the teleporter
-            if(localPlayerPosition.z < 0)
+            foreach(Transform currentTeleportable in objectsToTeleport)
             {
-                // Invert X and Z to match other portal after rotation
-                localPlayerPosition.x = -localPlayerPosition.x;
-                localPlayerPosition.z = -localPlayerPosition.z;
+                // Relative position of current teleportable
+                Vector3 localTeleportablePosition = myTransform.InverseTransformPoint(currentTeleportable.position);
 
-                // Player forward direction relative to this portal
-                Vector3 localPlayerForward = myPortal.InverseTransformDirection(player.forward);
+                // If current teleportable is behind the teleporter
+                if(localTeleportablePosition.z < 0)
+                {
+                    // Invert X and Z to match other portal after rotation
+                    localTeleportablePosition.x = -localTeleportablePosition.x;
+                    localTeleportablePosition.z = -localTeleportablePosition.z;
 
-                // Set player position and rotation relative to other portal
-                player.position = reciever.TransformPoint(localPlayerPosition);
-                player.rotation = Quaternion.LookRotation(otherPortal.TransformDirection(localPlayerForward), otherPortal.up);
+                    // Forward direction of current teleportable
+                    Vector3 localTeleportableForward = myPortal.InverseTransformDirection(currentTeleportable.forward);
 
-                playerIsOverlapping = false;
+                    // Set position and rotation of current teleportable
+                    currentTeleportable.position = reciever.TransformPoint(localTeleportablePosition);
+                    currentTeleportable.rotation = Quaternion.LookRotation(otherPortal.TransformDirection(localTeleportableForward), otherPortal.up);
+                }
             }
+            objectsToTeleport.Clear();
         }
 	}
 
     void OnTriggerEnter(Collider other)
     {
-        // Player is inside the collider
-        playerIsOverlapping |= other.CompareTag("Player");
+        if(myTeleportables.Contains(other.tag))
+        {
+            objectsToTeleport.Add(other.transform);
+        }
     }
 
     void OnTriggerExit(Collider other)
     {
-        // Player has left the collider
-        playerIsOverlapping &= !other.CompareTag("Player");
+        if(myTeleportables.Contains(other.tag))
+        {
+            objectsToTeleport.Remove(other.transform);
+        }
     }
 }
