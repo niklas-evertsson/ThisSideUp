@@ -982,7 +982,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e96d035c0b4dc4f618ffb59f83307b9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraMaterial: {fileID: 2100000, guid: 1cb42d1dfb86c440cb2bf2f4492a909a, type: 2}
+  cameraMaterial: {fileID: 2100000, guid: 64ddc86eb2ab842068e6572d1941f86a, type: 2}
   cutoutShader: {fileID: 4800000, guid: 597bffe86dc4c4aac89b646cddca18db, type: 3}
   targetPlane: {fileID: 23854998158202074}
   playerCamera: {fileID: 0}
@@ -1001,7 +1001,7 @@ MonoBehaviour:
   myPortal: {fileID: 4249298092154394}
   otherPortal: {fileID: 4485412802883832}
   player: {fileID: 0}
-  reciever: {fileID: 114391817544446590}
+  reciever: {fileID: 4377237589434848}
 --- !u!114 &114391817544446590
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1016,7 +1016,7 @@ MonoBehaviour:
   myPortal: {fileID: 4485412802883832}
   otherPortal: {fileID: 4249298092154394}
   player: {fileID: 0}
-  reciever: {fileID: 114245686889226682}
+  reciever: {fileID: 4939712684898778}
 --- !u!114 &114437855363013580
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1028,7 +1028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e96d035c0b4dc4f618ffb59f83307b9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraMaterial: {fileID: 2100000, guid: 01964be9e1a104fc7bc4ba2389f94386, type: 2}
+  cameraMaterial: {fileID: 2100000, guid: 64ddc86eb2ab842068e6572d1941f86a, type: 2}
   cutoutShader: {fileID: 4800000, guid: 597bffe86dc4c4aac89b646cddca18db, type: 3}
   targetPlane: {fileID: 23573329315634780}
   playerCamera: {fileID: 0}

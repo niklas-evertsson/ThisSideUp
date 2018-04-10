@@ -5,8 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class PortalCamera : MonoBehaviour
 {
-    public Material cameraMaterial;
-    public Shader cutoutShader;
     public Renderer targetPlane;
     public Transform playerCamera;
     public Transform otherPortal;

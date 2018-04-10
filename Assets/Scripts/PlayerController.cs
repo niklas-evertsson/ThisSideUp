@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : Teleportable
 {
     [HideInInspector]
     public bool inputEnabled = true;
+    [HideInInspector]
+    public Vector3 gravityUp;
 
     [Header("Player")]
     public float gravity = 20.0f;
@@ -39,7 +41,6 @@ public class PlayerController : MonoBehaviour
     private Transform myTransform;
     private Vector3 desiredMove;
     private Vector3 desiredJump;
-    private Vector3 gravityUp;
 
 	void Start()
     {
@@ -74,15 +75,15 @@ public class PlayerController : MonoBehaviour
                 GetInput();
             }
         }
-        else if(!isGrounded)
+        else
         {
             // Apply gravity
             desiredJump -= gravity * gravityUp * Time.deltaTime;
         }
         isGrounded = false;
 
-        MovePlayer(desiredMove * Time.deltaTime);
         MovePlayer(desiredJump * Time.deltaTime);
+        MovePlayer(desiredMove * Time.deltaTime);
     }
 
     void OnTriggerEnter(Collider other)
@@ -110,7 +111,6 @@ public class PlayerController : MonoBehaviour
         {
             input.Normalize();
         }
-
         input *= moveSpeed;
 
         if(Input.GetButtonDown("Jump"))
@@ -118,8 +118,8 @@ public class PlayerController : MonoBehaviour
             input.y = jumpSpeed;
         }
 
-        desiredJump = myTransform.up * input.y;
-        desiredMove = (myTransform.right * input.x) + (myTransform.forward * input.z);
+        desiredJump = gravityUp * input.y;
+        desiredMove = Vector3.ProjectOnPlane((myTransform.right * input.x) + (myTransform.forward * input.z), gravityUp);
     }
 
     void Look()

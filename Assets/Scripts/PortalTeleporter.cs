@@ -7,46 +7,52 @@ public class PortalTeleporter : MonoBehaviour
     public Transform myPortal;
     public Transform otherPortal;
     public Transform player;
-    public PortalTeleporter reciever;
+    public Transform reciever;
 
     private const float cooldown = 0.25f;
-    private float nextTeleport;
-    private List<string> myTeleportables;
     private Transform myTransform;
-    private Transform recieverTransform;
 
     void Start()
     {
-        myTeleportables = FindObjectOfType<GameManager>().teleportables;
         myTransform = GetComponent<Transform>();
-        recieverTransform = reciever.transform;
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if(myTeleportables.Contains(other.tag) && Time.time > Mathf.Max(nextTeleport, reciever.nextTeleport))
+        Teleportable teleportable = other.GetComponent<Teleportable>();
+        if(teleportable != null)
         {
-            nextTeleport = Time.time + cooldown;
-
-            // Relative position of current teleportable
-            Vector3 localTeleportablePosition = myTransform.InverseTransformPoint(other.transform.position);
-
-            // Invert X to match other portal after rotation
-            localTeleportablePosition.x = -localTeleportablePosition.x;
-
-            // Forward direction of current teleportable
-            Vector3 localTeleportableForward = myPortal.InverseTransformDirection(other.transform.forward);
-
-            // Set position and rotation of current teleportable
-            other.transform.position = recieverTransform.TransformPoint(localTeleportablePosition);
-            other.transform.rotation = Quaternion.LookRotation(otherPortal.TransformDirection(localTeleportableForward), otherPortal.up);
-
-            if(other.CompareTag("Projectile"))
+            if(!teleportable.IsTeleporting())
             {
-                Projectile projectile = other.GetComponent<Projectile>();
-                if(projectile != null)
+                // Relative position of current teleportable
+                Vector3 localTeleportablePosition = myTransform.InverseTransformPoint(other.transform.position);
+
+                // Invert X to match other portal after rotation
+                localTeleportablePosition.x = -localTeleportablePosition.x;
+
+                // Forward direction of current teleportable
+                Vector3 localTeleportableForward = myPortal.InverseTransformDirection(other.transform.forward);
+
+                // Set position and rotation of current teleportable
+                other.transform.position = reciever.TransformPoint(localTeleportablePosition);
+                other.transform.rotation = Quaternion.LookRotation(otherPortal.TransformDirection(localTeleportableForward), otherPortal.up);
+
+                if(other.CompareTag("Player"))
                 {
-                    projectile.ClearTrail();
+                    PlayerController playerController = other.GetComponent<PlayerController>();
+                    if(playerController != null)
+                    {
+                        playerController.gravityUp = reciever.up;
+                    }
+                }
+
+                if(other.CompareTag("Projectile"))
+                {
+                    Projectile projectile = other.GetComponent<Projectile>();
+                    if(projectile != null)
+                    {
+                        projectile.ClearTrail();
+                    }
                 }
             }
         }
