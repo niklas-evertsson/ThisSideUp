@@ -6,6 +6,8 @@ using UnityEngine;
 public class PortalCamera : MonoBehaviour
 {
     public Material cameraMaterial;
+    public Shader cutoutShader;
+    public Renderer targetPlane;
     public Transform playerCamera;
     public Transform otherPortal;
 
@@ -21,9 +23,9 @@ public class PortalCamera : MonoBehaviour
         {
             myCamera.targetTexture.Release();
         }
-        // Create a new render texture based on the screen size and assign it
+        // Give the camera the texture as target
         myCamera.targetTexture = new RenderTexture(Screen.width, Screen.height, 24);
-        cameraMaterial.mainTexture = myCamera.targetTexture;
+        targetPlane.material.mainTexture = myCamera.targetTexture;
 
         myTransform = GetComponent<Transform>();
     }

@@ -4,63 +4,51 @@ using UnityEngine;
 
 public class PortalTeleporter : MonoBehaviour
 {
-    public Transform player;
     public Transform myPortal;
     public Transform otherPortal;
-    public Transform reciever;
+    public Transform player;
+    public PortalTeleporter reciever;
 
+    private const float cooldown = 0.25f;
+    private float nextTeleport;
     private List<string> myTeleportables;
-    private List<Transform> objectsToTeleport = new List<Transform>();
     private Transform myTransform;
+    private Transform recieverTransform;
 
     void Start()
     {
         myTeleportables = FindObjectOfType<GameManager>().teleportables;
         myTransform = GetComponent<Transform>();
+        recieverTransform = reciever.transform;
     }
-
-	void Update()
-    {
-        // Check if a portable object is inside the collider
-        if(objectsToTeleport.Count != 0)
-        {
-            foreach(Transform currentTeleportable in objectsToTeleport)
-            {
-                // Relative position of current teleportable
-                Vector3 localTeleportablePosition = myTransform.InverseTransformPoint(currentTeleportable.position);
-
-                // If current teleportable is behind the teleporter
-                if(localTeleportablePosition.z < 0)
-                {
-                    // Invert X and Z to match other portal after rotation
-                    localTeleportablePosition.x = -localTeleportablePosition.x;
-                    localTeleportablePosition.z = -localTeleportablePosition.z;
-
-                    // Forward direction of current teleportable
-                    Vector3 localTeleportableForward = myPortal.InverseTransformDirection(currentTeleportable.forward);
-
-                    // Set position and rotation of current teleportable
-                    currentTeleportable.position = reciever.TransformPoint(localTeleportablePosition);
-                    currentTeleportable.rotation = Quaternion.LookRotation(otherPortal.TransformDirection(localTeleportableForward), otherPortal.up);
-                }
-            }
-            objectsToTeleport.Clear();
-        }
-	}
 
     void OnTriggerEnter(Collider other)
     {
-        if(myTeleportables.Contains(other.tag))
+        if(myTeleportables.Contains(other.tag) && Time.time > Mathf.Max(nextTeleport, reciever.nextTeleport))
         {
-            objectsToTeleport.Add(other.transform);
-        }
-    }
+            nextTeleport = Time.time + cooldown;
 
-    void OnTriggerExit(Collider other)
-    {
-        if(myTeleportables.Contains(other.tag))
-        {
-            objectsToTeleport.Remove(other.transform);
+            // Relative position of current teleportable
+            Vector3 localTeleportablePosition = myTransform.InverseTransformPoint(other.transform.position);
+
+            // Invert X to match other portal after rotation
+            localTeleportablePosition.x = -localTeleportablePosition.x;
+
+            // Forward direction of current teleportable
+            Vector3 localTeleportableForward = myPortal.InverseTransformDirection(other.transform.forward);
+
+            // Set position and rotation of current teleportable
+            other.transform.position = recieverTransform.TransformPoint(localTeleportablePosition);
+            other.transform.rotation = Quaternion.LookRotation(otherPortal.TransformDirection(localTeleportableForward), otherPortal.up);
+
+            if(other.CompareTag("Projectile"))
+            {
+                Projectile projectile = other.GetComponent<Projectile>();
+                if(projectile != null)
+                {
+                    projectile.ClearTrail();
+                }
+            }
         }
     }
 }

@@ -41,7 +41,6 @@ GameObject:
   - component: {fileID: 4310399666999198}
   - component: {fileID: 33312122209849708}
   - component: {fileID: 23540799178514410}
-  - component: {fileID: 114575425995918214}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -74,7 +73,6 @@ GameObject:
   - component: {fileID: 4269032724804544}
   - component: {fileID: 20365106181868390}
   - component: {fileID: 124188814788808196}
-  - component: {fileID: 81203423409175230}
   m_Layer: 0
   m_Name: PlayerCamera
   m_TagString: MainCamera
@@ -117,7 +115,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1202221601455740}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -40, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4269032724804544}
@@ -269,32 +267,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!81 &81203423409175230
-AudioListener:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1641119702108728}
-  m_Enabled: 1
-  m_ExtensionPropertyValues: []
---- !u!114 &114575425995918214
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1335872017318668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb91716bf9a3d4365ab36035b7c8307b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fireRate: 0.25
-  gunRange: 100
-  projectileSpeed: 10
-  projectileMaxLifetime: 5
-  projectile: {fileID: 114002305602824682, guid: 3b0194c0860684d19953606d729149e7,
-    type: 2}
-  gunEnd: {fileID: 4631460806764816}
 --- !u!114 &114810407952692554
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -306,11 +278,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1178551f1226549d98d913d106553eb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputEnabled: 1
   gravity: 20
   gravityAlignementSpeed: 20
   jumpSpeed: 10
   lookSpeed: 2
   moveSpeed: 20
+  health: 3
+  playerColor: {r: 1, g: 0, b: 0, a: 1}
+  fireRate: 0.25
+  gunRange: 100
+  gunEnd: {fileID: 4631460806764816}
+  projectileMaxLifetime: 5
+  projectileSpeed: 100
+  projectile: {fileID: 114002305602824682, guid: 3b0194c0860684d19953606d729149e7,
+    type: 2}
 --- !u!124 &124188814788808196
 Behaviour:
   m_ObjectHideFlags: 1

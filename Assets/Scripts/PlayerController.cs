@@ -2,24 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Camera))]
-[RequireComponent(typeof(CapsuleCollider))]
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
     [HideInInspector]
     public bool inputEnabled = true;
+
+    [Header("Player")]
     public float gravity = 20.0f;
     public float gravityAlignementSpeed = 20.0f;
     public float jumpSpeed = 10.0f;
     public float lookSpeed = 2.0f;
     public float moveSpeed = 20.0f;
+    public int health = 3;
+    public Color playerColor = Color.white;
+
+    [Header("Gun")]
+    public float fireRate = 0.25f;
+    public float gunRange = 100.0f;
+    public Transform gunEnd;
+
+    [Header("Projectile")]
+    public float projectileMaxLifetime = 5.0f;
+    public float projectileSpeed = 100.0f;
+    public Projectile projectile;
 
     private const float minGroundNormalY = 0.65f;
     private const float shellRadius = 0.01f;
     private bool isGrounded;
     private float distance;
     private float lookY;
+    private float nextFire;
     private Camera myCamera;
     private RaycastHit[] hitBuffer;
     private Rigidbody myRigidbody;
@@ -41,31 +54,51 @@ public class PlayerController : MonoBehaviour
         if(inputEnabled)
         {
             Look();
+
+            if(Input.GetButtonDown("Fire1") && Time.time > nextFire)
+            {
+                nextFire = Time.time + fireRate;
+                Shoot();
+            }
         }
 	}
 
     void FixedUpdate()
     {
-        if(isGrounded && inputEnabled)
+        AlignToGravity();
+
+        if(isGrounded)
         {
-            GetInput();
+            if(inputEnabled)
+            {
+                GetInput();
+            }
+        }
+        else if(!isGrounded)
+        {
+            // Apply gravity
+            desiredJump -= gravity * gravityUp * Time.deltaTime;
         }
         isGrounded = false;
-
-        ApplyGravity();
 
         MovePlayer(desiredMove * Time.deltaTime);
         MovePlayer(desiredJump * Time.deltaTime);
     }
 
-    void ApplyGravity()
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Face"))
+        {
+            gravityUp = other.transform.up;
+        }
+    }
+
+    void AlignToGravity()
     {
         // Align player to gravity
         Quaternion gravityRotation = Quaternion.FromToRotation(myTransform.up, gravityUp) * myTransform.rotation;
         myTransform.rotation = Quaternion.Slerp(myTransform.rotation, gravityRotation, gravityAlignementSpeed * Time.deltaTime);
 
-        // Apply gravity
-        desiredJump -= gravity * gravityUp * Time.deltaTime;
     }
 
     void GetInput()
@@ -127,11 +160,26 @@ public class PlayerController : MonoBehaviour
         myRigidbody.position += velocity.normalized * distance;
     }
 
-    void OnTriggerEnter(Collider other)
+    void Shoot()
     {
-        if(other.CompareTag("Face"))
+        RaycastHit hit;
+        Vector3 target;
+        // Check what the player is aiming at
+        if(Physics.Raycast(myCamera.transform.position, myCamera.transform.forward, out hit, gunRange))
         {
-            gravityUp = other.transform.up;
+            target = hit.point;
         }
+        else
+        {
+            target = myCamera.transform.position + (myCamera.transform.forward * gunRange);
+        }
+        // Aim gun where player looks
+        gunEnd.LookAt(target);
+
+        // Fire projectile and set its properties
+        Projectile clone = Instantiate(projectile, gunEnd.position, gunEnd.rotation);
+        clone.color = playerColor;
+        clone.maxLifetime = projectileMaxLifetime;
+        clone.speed = projectileSpeed;
     }
 }
