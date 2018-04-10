@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [TagSelector]
-    public List<string> teleportables;
     public PlayerController player;
 
     void Start()

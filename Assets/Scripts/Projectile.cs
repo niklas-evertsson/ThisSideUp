@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(TrailRenderer))]
-public class Projectile : MonoBehaviour
+public class Projectile : Teleportable
 {
     public float maxLifetime = 5.0f;
     public float speed = 5.0f;
@@ -16,7 +16,6 @@ public class Projectile : MonoBehaviour
 
     public void ClearTrail()
     {
-//        myTrail.enabled = showTrail;
         myTrail.Clear();
     }
 
