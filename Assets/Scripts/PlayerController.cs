@@ -14,6 +14,7 @@ public class PlayerController : Teleportable
     public float gravity = 20.0f;
     public float gravityAlignementSpeed = 20.0f;
     public float jumpSpeed = 10.0f;
+    public float lookSmoothing = 0.25f;
     public float lookSpeed = 2.0f;
     public float moveSpeed = 20.0f;
     public int health = 3;
@@ -35,6 +36,8 @@ public class PlayerController : Teleportable
     private float distance;
     private float lookY;
     private float nextFire;
+    private float smoothLookX;
+    private float smoothLookY;
     private Camera myCamera;
     private RaycastHit[] hitBuffer;
     private Rigidbody myRigidbody;
@@ -125,13 +128,15 @@ public class PlayerController : Teleportable
     void Look()
     {
         // Mouse player turning
-        float lookX = Input.GetAxis("Mouse X") + Input.GetAxis("Turning") * 10;
-        myTransform.Rotate(0, lookX * lookSpeed, 0);
+        float lookX = Input.GetAxis("Mouse X") + Input.GetAxis("Turning") * lookSpeed;
+        smoothLookX = Mathf.Lerp(smoothLookX, lookX, lookSmoothing);
+        myTransform.Rotate(0, smoothLookX, 0);
 
         // Mouse camera pitch
         lookY -= Input.GetAxis("Mouse Y") * lookSpeed;
-        lookY = Mathf.Clamp(lookY, -90, 90);
-        myCamera.transform.localRotation = Quaternion.Euler(lookY, 0, 0);
+        smoothLookY = Mathf.Lerp(smoothLookY, lookY, lookSmoothing);
+        smoothLookY = Mathf.Clamp(smoothLookY, -90, 90);
+        myCamera.transform.localRotation = Quaternion.Euler(smoothLookY, 0, 0);
     }
 
     void MovePlayer(Vector3 velocity)
