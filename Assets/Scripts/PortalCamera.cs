@@ -5,12 +5,13 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class PortalCamera : MonoBehaviour
 {
-    public Renderer targetPlane;
+    public Renderer targetRenderer;
     public Transform playerCamera;
     public Transform otherPortal;
 
     private Camera myCamera;
     private Transform myTransform;
+    private Transform planeTransform;
 
     void Start()
     {
@@ -23,15 +24,25 @@ public class PortalCamera : MonoBehaviour
         }
         // Give the camera the texture as target
         myCamera.targetTexture = new RenderTexture(Screen.width, Screen.height, 24);
-        targetPlane.material.mainTexture = myCamera.targetTexture;
+        targetRenderer.material.mainTexture = myCamera.targetTexture;
 
         myTransform = GetComponent<Transform>();
+        planeTransform = targetRenderer.GetComponent<Transform>();
     }
 
 	void Update()
     {
-        // Match player position and rotation relative to the other portal
-        myTransform.localPosition = otherPortal.InverseTransformPoint(playerCamera.position);
-        myTransform.localRotation = Quaternion.LookRotation(otherPortal.InverseTransformDirection(playerCamera.forward));
+        Vector3 planeLocalForward = planeTransform.InverseTransformDirection(planeTransform.forward);
+        Vector3 playerLocalPositionToPlane = planeTransform.InverseTransformPoint(playerCamera.position);
+
+        bool planeInView = targetRenderer.isVisible && Vector3.Dot(planeLocalForward, playerLocalPositionToPlane.normalized) < 0;
+        myCamera.enabled = planeInView;
+
+        if(planeInView)
+        {
+            // Match player position and rotation relative to the other portal
+            myTransform.localPosition = otherPortal.InverseTransformPoint(playerCamera.position);
+            myTransform.localRotation = Quaternion.LookRotation(otherPortal.InverseTransformDirection(playerCamera.forward));
+        }
 	}
 }
