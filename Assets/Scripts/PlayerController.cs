@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerController : Teleportable
 {
     [HideInInspector]
-    public bool inputEnabled = true;
+    public static bool inputEnabled = true;
     [HideInInspector]
     public Vector3 gravityUp;
 
@@ -18,6 +18,7 @@ public class PlayerController : Teleportable
     public float lookSpeed = 2.0f;
     public float moveSpeed = 20.0f;
     public int health = 3;
+    public int playerNumber = 1;
     public Color playerColor = Color.white;
 
     [Header("Gun")]
@@ -38,6 +39,12 @@ public class PlayerController : Teleportable
     private float nextFire;
     private float smoothLookX;
     private float smoothLookY;
+    private string fireInput;
+    private string horizontalInput;
+    private string jumpInput;
+    private string verticalInput;
+    private string xLookInput;
+    private string yLookInput;
     private Camera myCamera;
     private RaycastHit[] hitBuffer;
     private Rigidbody myRigidbody;
@@ -51,6 +58,13 @@ public class PlayerController : Teleportable
         myRigidbody = GetComponent<Rigidbody>();
         myTransform = GetComponent<Transform>();
         gravityUp = myTransform.up;
+
+        fireInput       = "Fire"       + playerNumber;
+        horizontalInput = "Horizontal" + playerNumber;
+        jumpInput       = "Jump"       + playerNumber;
+        verticalInput   = "Vertical"   + playerNumber;
+        xLookInput      = "LookX"      + playerNumber;
+        yLookInput      = "LookY"      + playerNumber;
 	}
 
 	void Update()
@@ -59,7 +73,8 @@ public class PlayerController : Teleportable
         {
             Look();
 
-            if(Input.GetButtonDown("Fire1") && Time.time > nextFire)
+            bool shooting = Input.GetButton(fireInput) || Input.GetAxis(fireInput) > 0;
+            if(shooting && Time.time > nextFire)
             {
                 nextFire = Time.time + fireRate;
                 Shoot();
@@ -107,7 +122,7 @@ public class PlayerController : Teleportable
 
     void GetInput()
     {
-        var input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        var input = new Vector3(Input.GetAxis(horizontalInput), 0, Input.GetAxis(verticalInput));
 
         // Prevents player from walking faster diagonally
         if (input.sqrMagnitude > 1)
@@ -116,7 +131,7 @@ public class PlayerController : Teleportable
         }
         input *= moveSpeed;
 
-        if(Input.GetButtonDown("Jump"))
+        if(Input.GetButtonDown(jumpInput))
         {
             input.y = jumpSpeed;
         }
@@ -128,12 +143,12 @@ public class PlayerController : Teleportable
     void Look()
     {
         // Mouse player turning
-        float lookX = Input.GetAxis("Mouse X") + Input.GetAxis("Turning") * lookSpeed;
+        float lookX = (Input.GetAxis(xLookInput) + Input.GetAxis("Turning")) * lookSpeed;
         smoothLookX = Mathf.Lerp(smoothLookX, lookX, lookSmoothing);
         myTransform.Rotate(0, smoothLookX, 0);
 
         // Mouse camera pitch
-        lookY -= Input.GetAxis("Mouse Y") * lookSpeed;
+        lookY -= Input.GetAxis(yLookInput) * lookSpeed;
         smoothLookY = Mathf.Lerp(smoothLookY, lookY, lookSmoothing);
         smoothLookY = Mathf.Clamp(smoothLookY, -90, 90);
         myCamera.transform.localRotation = Quaternion.Euler(smoothLookY, 0, 0);

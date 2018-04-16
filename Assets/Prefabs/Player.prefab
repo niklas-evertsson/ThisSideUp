@@ -279,20 +279,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputEnabled: 1
+  gravityUp: {x: 0, y: 0, z: 0}
   gravity: 20
   gravityAlignementSpeed: 20
   jumpSpeed: 10
+  lookSmoothing: 0.25
   lookSpeed: 2
   moveSpeed: 20
   health: 3
-  playerColor: {r: 1, g: 0, b: 0, a: 1}
+  playerColor: {r: 1, g: 1, b: 1, a: 1}
   fireRate: 0.25
   gunRange: 100
-  gunEnd: {fileID: 4631460806764816}
+  gunEnd: {fileID: 0}
   projectileMaxLifetime: 5
   projectileSpeed: 100
-  projectile: {fileID: 114002305602824682, guid: 3b0194c0860684d19953606d729149e7,
-    type: 2}
+  projectile: {fileID: 0}
 --- !u!124 &124188814788808196
 Behaviour:
   m_ObjectHideFlags: 1

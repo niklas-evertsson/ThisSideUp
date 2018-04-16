@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public PlayerController player;
-
     void Start()
     {
         // Hide and lock cursor to the center of the screen
@@ -17,7 +15,7 @@ public class GameManager : MonoBehaviour
         if(Input.GetKeyDown("escape"))
         {
             // Disable player input
-            player.inputEnabled = !player.inputEnabled;
+            PlayerController.inputEnabled = !PlayerController.inputEnabled;
 
             // Release the cursor and exit the game
             Cursor.lockState = CursorLockMode.None;
