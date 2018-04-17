@@ -1,3 +1,4 @@
+// This shader is sourced from https://github.com/KillianMcCabe/SmoothPortals
 Shader "Unlit/ScreenCutoutShader"
 {
 	Properties

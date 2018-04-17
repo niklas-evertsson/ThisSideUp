@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
 public class PortalCamera : MonoBehaviour
@@ -16,26 +14,30 @@ public class PortalCamera : MonoBehaviour
     void Start()
     {
         myCamera = GetComponent<Camera>();
+        myTransform = GetComponent<Transform>();
+        planeTransform = targetRenderer.GetComponent<Transform>();
 
         // Release any assigned render texture
         if(myCamera.targetTexture != null)
         {
             myCamera.targetTexture.Release();
         }
-        // Give the camera the texture as target
+
+        // Create new render texture based on screen size and set it as render target on camera
         myCamera.targetTexture = new RenderTexture(Screen.width / 2, Screen.height, 24);
         targetRenderer.material.mainTexture = myCamera.targetTexture;
-
-        myTransform = GetComponent<Transform>();
-        planeTransform = targetRenderer.GetComponent<Transform>();
     }
 
 	void Update()
     {
+        // Get local references
         Vector3 planeLocalForward = planeTransform.InverseTransformDirection(planeTransform.forward);
         Vector3 playerLocalPositionToPlane = planeTransform.InverseTransformPoint(playerCamera.position);
 
+        // Check if players can see the render plane and if its facing the players
         bool planeInView = targetRenderer.isVisible && Vector3.Dot(planeLocalForward, playerLocalPositionToPlane.normalized) < 0;
+
+        // Else turn camera off
         myCamera.enabled = planeInView;
 
         if(planeInView)

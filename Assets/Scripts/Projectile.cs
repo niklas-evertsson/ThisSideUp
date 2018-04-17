@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(TrailRenderer))]
@@ -14,6 +12,7 @@ public class Projectile : Teleportable
     private TrailRenderer myTrail;
     private Transform myTransform;
 
+    // Clears the trail of the trail renderer, used by PortalTeleporter
     public void ClearTrail()
     {
         myTrail.Clear();
@@ -25,14 +24,17 @@ public class Projectile : Teleportable
         myTrail = GetComponent<TrailRenderer>();
         myTransform = GetComponent<Transform>();
 
+        // Set properties from inspector
         myTrail.startColor = color;
         myTrail.endColor = color;
 
+        // Set a time limit on the projectiles lifetime
         Destroy(gameObject, maxLifetime);
 	}
 
 	void FixedUpdate()
     {
+        // Move the projectile forward
         myRigidbody.MovePosition(myRigidbody.position + (speed * myTransform.forward * Time.deltaTime));
 	}
 
@@ -43,9 +45,12 @@ public class Projectile : Teleportable
             PlayerController playerController = other.GetComponent<PlayerController>();
             if(playerController != null)
             {
+                // Reduce the health of the player
                 playerController.health -= 1;
+                Destroy(gameObject);
             }
         }
+        // Only destroy if other is not a face and not a portal
         else if(!other.CompareTag("Face") && !other.CompareTag("Portal"))
         {
             Destroy(gameObject);

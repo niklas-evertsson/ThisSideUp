@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+// Members of this class can use portals
 public class Teleportable : MonoBehaviour
 {
     private const float cooldown = 0.25f;
@@ -9,6 +8,7 @@ public class Teleportable : MonoBehaviour
 
     public bool IsTeleporting()
     {
+        // Prevents flickering between portals
         if(Time.time > nextTeleport)
         {
             nextTeleport = Time.time + cooldown;

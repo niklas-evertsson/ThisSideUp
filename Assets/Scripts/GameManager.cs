@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,7 +10,6 @@ public class GameManager : MonoBehaviour
     public GameObject player2WinText;
 
     private PlayerController[] players;
-    private WaitForSeconds roundDelay;
 
     void Start()
     {
@@ -20,13 +18,13 @@ public class GameManager : MonoBehaviour
 
         // Get all players
         players = FindObjectsOfType<PlayerController>();
-        roundDelay = new WaitForSeconds(delayBetweenRounds);
     }
 
 	void Update()
     {
         if(OnePlayerLeft())
         {
+            // Declare the winner and restart the level
             StartCoroutine(EndRound());
         }
 
@@ -86,7 +84,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
-        yield return roundDelay;
+        yield return new WaitForSeconds(delayBetweenRounds);
         SceneManager.LoadScene("Main");
     }
 }

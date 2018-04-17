@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PortalTeleporter : MonoBehaviour
 {
@@ -19,6 +17,7 @@ public class PortalTeleporter : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        // Check if other is a Teleportable
         Teleportable teleportable = other.GetComponent<Teleportable>();
         if(teleportable != null)
         {
@@ -42,6 +41,7 @@ public class PortalTeleporter : MonoBehaviour
                     PlayerController playerController = other.GetComponent<PlayerController>();
                     if(playerController != null)
                     {
+                        // Align player to gravity after teleportation
                         playerController.gravityUp = reciever.up;
                     }
                 }
@@ -51,6 +51,7 @@ public class PortalTeleporter : MonoBehaviour
                     Projectile projectile = other.GetComponent<Projectile>();
                     if(projectile != null)
                     {
+                        // Clear the trail renderer of the projectile after teleportation
                         projectile.ClearTrail();
                     }
                 }

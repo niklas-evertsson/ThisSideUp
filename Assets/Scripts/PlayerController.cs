@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : Teleportable
@@ -84,6 +82,7 @@ public class PlayerController : Teleportable
         {
             Look();
 
+            // Get input from fire button or trigger
             bool shooting = Input.GetButton(fireInput) || Input.GetAxis(fireInput) > 0;
             if(shooting && Time.time > nextFire)
             {
@@ -111,7 +110,9 @@ public class PlayerController : Teleportable
         }
         isGrounded = false;
 
+        // Move player along local vertial axis
         MovePlayer(desiredJump * Time.deltaTime);
+        // Move player along local horizontal axes
         MovePlayer(desiredMove * Time.deltaTime);
     }
 
@@ -119,6 +120,7 @@ public class PlayerController : Teleportable
     {
         if(other.CompareTag("Face"))
         {
+            // Get new gravity alignment from touched face
             gravityUp = other.transform.up;
         }
     }
@@ -135,7 +137,7 @@ public class PlayerController : Teleportable
     {
         var input = new Vector3(Input.GetAxis(horizontalInput), 0, Input.GetAxis(verticalInput));
 
-        // Prevents player from walking faster diagonally
+        // Prevent player from walking faster diagonally
         if (input.sqrMagnitude > 1)
         {
             input.Normalize();
@@ -168,18 +170,25 @@ public class PlayerController : Teleportable
     void MovePlayer(Vector3 velocity)
     {
         distance = velocity.magnitude;
+
+        // Sweep to where the rigidbody wants to go next frame
         hitBuffer = myRigidbody.SweepTestAll(velocity, distance + shellRadius, QueryTriggerInteraction.Ignore);
+
+        // Resolve each collision
         for(int i = 0; i < hitBuffer.Length; i++)
         {
+            // Ground check
             Vector3 currentNormal = hitBuffer[i].normal;
             isGrounded |= Vector3.Dot(gravityUp, currentNormal) > minGroundNormalY;
 
+            // Adjust velocity if collision is at an angle
             float projection = Vector3.Dot(velocity, currentNormal);
             if(projection < -0.01f)
             {
                 velocity -= projection * currentNormal;
             }
 
+            // Adjust distance to avoid clipping through
             float modifiedDistance = hitBuffer[i].distance - shellRadius;
             if(modifiedDistance < distance)
             {
