@@ -166,12 +166,12 @@ Prefab:
         type: 2}
       propertyPath: playerCamera
       value: 
-      objectReference: {fileID: 1822203346}
+      objectReference: {fileID: 403398257}
     - target: {fileID: 114136376171951172, guid: 9bb44137895464384a1934090f524bdd,
         type: 2}
       propertyPath: playerCamera
       value: 
-      objectReference: {fileID: 1822203346}
+      objectReference: {fileID: 403398257}
     - target: {fileID: 1330433917051054, guid: 9bb44137895464384a1934090f524bdd, type: 2}
       propertyPath: m_Name
       value: PortalPair 41 53
@@ -282,6 +282,44 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 9d4136a93a0974f97b01ef485f878b92, type: 2}
+    - target: {fileID: 114329717234311810, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 1822203346}
+    - target: {fileID: 114834126289183290, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 1822203346}
+    - target: {fileID: 1941868649120730, guid: 9bb44137895464384a1934090f524bdd, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1238514399029670, guid: 9bb44137895464384a1934090f524bdd, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 20422585753433412, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294965503
+      objectReference: {fileID: 0}
+    - target: {fileID: 20496181052701194, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294965503
+      objectReference: {fileID: 0}
+    - target: {fileID: 20499506382365674, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294965503
+      objectReference: {fileID: 0}
+    - target: {fileID: 20545500765443698, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294965503
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9bb44137895464384a1934090f524bdd, type: 2}
   m_IsPrefabParent: 0
@@ -299,7 +337,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4492877812915546, guid: c2285c9c20dbb49a8b980b6f63c34363, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4492877812915546, guid: c2285c9c20dbb49a8b980b6f63c34363, type: 2}
       propertyPath: m_LocalPosition.y
@@ -307,7 +345,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4492877812915546, guid: c2285c9c20dbb49a8b980b6f63c34363, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 10
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 4492877812915546, guid: c2285c9c20dbb49a8b980b6f63c34363, type: 2}
       propertyPath: m_LocalRotation.x
@@ -315,7 +353,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4492877812915546, guid: c2285c9c20dbb49a8b980b6f63c34363, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4492877812915546, guid: c2285c9c20dbb49a8b980b6f63c34363, type: 2}
       propertyPath: m_LocalRotation.z
@@ -323,7 +361,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4492877812915546, guid: c2285c9c20dbb49a8b980b6f63c34363, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4492877812915546, guid: c2285c9c20dbb49a8b980b6f63c34363, type: 2}
       propertyPath: m_RootOrder
@@ -335,7 +373,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4492877812915546, guid: c2285c9c20dbb49a8b980b6f63c34363, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 20365106181868390, guid: c2285c9c20dbb49a8b980b6f63c34363,
         type: 2}
@@ -373,6 +411,15 @@ Prefab:
       propertyPath: gunEnd
       value: 
       objectReference: {fileID: 77733999}
+    - target: {fileID: 1641119702108728, guid: c2285c9c20dbb49a8b980b6f63c34363, type: 2}
+      propertyPath: m_Name
+      value: PlayerCamera2
+      objectReference: {fileID: 0}
+    - target: {fileID: 20365106181868390, guid: c2285c9c20dbb49a8b980b6f63c34363,
+        type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294966783
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c2285c9c20dbb49a8b980b6f63c34363, type: 2}
   m_IsPrefabParent: 0
@@ -657,6 +704,11 @@ Transform:
   m_PrefabParentObject: {fileID: 4314807510694690, guid: a5aa95894b97c4ffca1e1f1d9308ae59,
     type: 2}
   m_PrefabInternal: {fileID: 331769211}
+--- !u!4 &403398257 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4269032724804544, guid: c2285c9c20dbb49a8b980b6f63c34363,
+    type: 2}
+  m_PrefabInternal: {fileID: 114714324}
 --- !u!1001 &419103672
 Prefab:
   m_ObjectHideFlags: 0
@@ -696,37 +748,39 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114245686889226682, guid: 9bb44137895464384a1934090f524bdd,
+    - target: {fileID: 114437855363013580, guid: 9bb44137895464384a1934090f524bdd,
         type: 2}
-      propertyPath: player
+      propertyPath: playerCamera
       value: 
-      objectReference: {fileID: 1161997807}
+      objectReference: {fileID: 403398257}
+    - target: {fileID: 114136376171951172, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 403398257}
+    - target: {fileID: 114329717234311810, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 1822203346}
+    - target: {fileID: 114834126289183290, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 1822203346}
     - target: {fileID: 114391817544446590, guid: 9bb44137895464384a1934090f524bdd,
         type: 2}
       propertyPath: player
       value: 
       objectReference: {fileID: 1161997807}
-    - target: {fileID: 114437855363013580, guid: 9bb44137895464384a1934090f524bdd,
+    - target: {fileID: 114245686889226682, guid: 9bb44137895464384a1934090f524bdd,
         type: 2}
-      propertyPath: playerCamera
+      propertyPath: player
       value: 
-      objectReference: {fileID: 1822203346}
-    - target: {fileID: 114136376171951172, guid: 9bb44137895464384a1934090f524bdd,
-        type: 2}
-      propertyPath: playerCamera
-      value: 
-      objectReference: {fileID: 1822203346}
+      objectReference: {fileID: 1161997807}
     - target: {fileID: 1330433917051054, guid: 9bb44137895464384a1934090f524bdd, type: 2}
       propertyPath: m_Name
       value: PortalPair 12 32
-      objectReference: {fileID: 0}
-    - target: {fileID: 1330433917051054, guid: 9bb44137895464384a1934090f524bdd, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4485412802883832, guid: 9bb44137895464384a1934090f524bdd, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9bb44137895464384a1934090f524bdd, type: 2}
@@ -1068,12 +1122,12 @@ Prefab:
         type: 2}
       propertyPath: playerCamera
       value: 
-      objectReference: {fileID: 1822203346}
+      objectReference: {fileID: 403398257}
     - target: {fileID: 114136376171951172, guid: 9bb44137895464384a1934090f524bdd,
         type: 2}
       propertyPath: playerCamera
       value: 
-      objectReference: {fileID: 1822203346}
+      objectReference: {fileID: 403398257}
     - target: {fileID: 1330433917051054, guid: 9bb44137895464384a1934090f524bdd, type: 2}
       propertyPath: m_Name
       value: PortalPair 64 23
@@ -1184,6 +1238,44 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4d3430000bcb24bff889b6e78b3423c1, type: 2}
+    - target: {fileID: 114329717234311810, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 1822203346}
+    - target: {fileID: 114834126289183290, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 1822203346}
+    - target: {fileID: 1941868649120730, guid: 9bb44137895464384a1934090f524bdd, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1238514399029670, guid: 9bb44137895464384a1934090f524bdd, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 20422585753433412, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294965503
+      objectReference: {fileID: 0}
+    - target: {fileID: 20545500765443698, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294965503
+      objectReference: {fileID: 0}
+    - target: {fileID: 20496181052701194, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294965503
+      objectReference: {fileID: 0}
+    - target: {fileID: 20499506382365674, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294965503
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9bb44137895464384a1934090f524bdd, type: 2}
   m_IsPrefabParent: 0
@@ -1245,12 +1337,12 @@ Prefab:
         type: 2}
       propertyPath: playerCamera
       value: 
-      objectReference: {fileID: 1822203346}
+      objectReference: {fileID: 403398257}
     - target: {fileID: 114136376171951172, guid: 9bb44137895464384a1934090f524bdd,
         type: 2}
       propertyPath: playerCamera
       value: 
-      objectReference: {fileID: 1822203346}
+      objectReference: {fileID: 403398257}
     - target: {fileID: 1330433917051054, guid: 9bb44137895464384a1934090f524bdd, type: 2}
       propertyPath: m_Name
       value: PortalPair 46 63
@@ -1361,6 +1453,44 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 9d4136a93a0974f97b01ef485f878b92, type: 2}
+    - target: {fileID: 114329717234311810, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 1822203346}
+    - target: {fileID: 114834126289183290, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 1822203346}
+    - target: {fileID: 1941868649120730, guid: 9bb44137895464384a1934090f524bdd, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1238514399029670, guid: 9bb44137895464384a1934090f524bdd, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 20499506382365674, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294965503
+      objectReference: {fileID: 0}
+    - target: {fileID: 20496181052701194, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294965503
+      objectReference: {fileID: 0}
+    - target: {fileID: 20422585753433412, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294965503
+      objectReference: {fileID: 0}
+    - target: {fileID: 20545500765443698, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294965503
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9bb44137895464384a1934090f524bdd, type: 2}
   m_IsPrefabParent: 0
@@ -1493,12 +1623,12 @@ Prefab:
         type: 2}
       propertyPath: playerCamera
       value: 
-      objectReference: {fileID: 1822203346}
+      objectReference: {fileID: 403398257}
     - target: {fileID: 114136376171951172, guid: 9bb44137895464384a1934090f524bdd,
         type: 2}
       propertyPath: playerCamera
       value: 
-      objectReference: {fileID: 1822203346}
+      objectReference: {fileID: 403398257}
     - target: {fileID: 1330433917051054, guid: 9bb44137895464384a1934090f524bdd, type: 2}
       propertyPath: m_Name
       value: PortalPair 54 15
@@ -1609,6 +1739,44 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 8b9491bddd4624fd8be9266147434fcd, type: 2}
+    - target: {fileID: 114329717234311810, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 1822203346}
+    - target: {fileID: 114834126289183290, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 1822203346}
+    - target: {fileID: 1941868649120730, guid: 9bb44137895464384a1934090f524bdd, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1238514399029670, guid: 9bb44137895464384a1934090f524bdd, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 20496181052701194, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294965503
+      objectReference: {fileID: 0}
+    - target: {fileID: 20499506382365674, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294965503
+      objectReference: {fileID: 0}
+    - target: {fileID: 20422585753433412, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294965503
+      objectReference: {fileID: 0}
+    - target: {fileID: 20545500765443698, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294965503
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9bb44137895464384a1934090f524bdd, type: 2}
   m_IsPrefabParent: 0
@@ -1740,7 +1908,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4492877812915546, guid: c2285c9c20dbb49a8b980b6f63c34363, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 4492877812915546, guid: c2285c9c20dbb49a8b980b6f63c34363, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1809,6 +1977,15 @@ Prefab:
         type: 2}
       propertyPath: m_NormalizedViewPortRect.width
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641119702108728, guid: c2285c9c20dbb49a8b980b6f63c34363, type: 2}
+      propertyPath: m_Name
+      value: PlayerCamera1
+      objectReference: {fileID: 0}
+    - target: {fileID: 20365106181868390, guid: c2285c9c20dbb49a8b980b6f63c34363,
+        type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294966271
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c2285c9c20dbb49a8b980b6f63c34363, type: 2}
@@ -1905,7 +2082,7 @@ Prefab:
         type: 2}
       propertyPath: playerCamera
       value: 
-      objectReference: {fileID: 1822203346}
+      objectReference: {fileID: 403398257}
     - target: {fileID: 20545500765443698, guid: 9bb44137895464384a1934090f524bdd,
         type: 2}
       propertyPath: m_TargetTexture
@@ -1919,7 +2096,7 @@ Prefab:
         type: 2}
       propertyPath: playerCamera
       value: 
-      objectReference: {fileID: 1822203346}
+      objectReference: {fileID: 403398257}
     - target: {fileID: 20496181052701194, guid: 9bb44137895464384a1934090f524bdd,
         type: 2}
       propertyPath: m_TargetTexture
@@ -2159,11 +2336,41 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1941868649120730, guid: 9bb44137895464384a1934090f524bdd, type: 2}
       propertyPath: m_Layer
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1238514399029670, guid: 9bb44137895464384a1934090f524bdd, type: 2}
       propertyPath: m_Layer
-      value: 9
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114329717234311810, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 1822203346}
+    - target: {fileID: 114834126289183290, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 1822203346}
+    - target: {fileID: 20496181052701194, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294965503
+      objectReference: {fileID: 0}
+    - target: {fileID: 20499506382365674, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294965503
+      objectReference: {fileID: 0}
+    - target: {fileID: 20422585753433412, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294965503
+      objectReference: {fileID: 0}
+    - target: {fileID: 20545500765443698, guid: 9bb44137895464384a1934090f524bdd,
+        type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294965503
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9bb44137895464384a1934090f524bdd, type: 2}

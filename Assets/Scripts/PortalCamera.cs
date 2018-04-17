@@ -23,7 +23,7 @@ public class PortalCamera : MonoBehaviour
             myCamera.targetTexture.Release();
         }
         // Give the camera the texture as target
-        myCamera.targetTexture = new RenderTexture(Screen.width, Screen.height, 24);
+        myCamera.targetTexture = new RenderTexture(Screen.width / 2, Screen.height, 24);
         targetRenderer.material.mainTexture = myCamera.targetTexture;
 
         myTransform = GetComponent<Transform>();
