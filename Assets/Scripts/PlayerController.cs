@@ -5,7 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : Teleportable
 {
-    [HideInInspector]
     public static bool inputEnabled = true;
     [HideInInspector]
     public Vector3 gravityUp;
@@ -46,6 +45,7 @@ public class PlayerController : Teleportable
     private string xLookInput;
     private string yLookInput;
     private Camera myCamera;
+    private MeshRenderer[] myMeshRenderers;
     private RaycastHit[] hitBuffer;
     private Rigidbody myRigidbody;
     private Transform myTransform;
@@ -55,6 +55,7 @@ public class PlayerController : Teleportable
 	void Start()
     {
         myCamera = GetComponentInChildren<Camera>();
+        myMeshRenderers = GetComponentsInChildren<MeshRenderer>();
         myRigidbody = GetComponent<Rigidbody>();
         myTransform = GetComponent<Transform>();
         gravityUp = myTransform.up;
@@ -69,6 +70,16 @@ public class PlayerController : Teleportable
 
 	void Update()
     {
+        // Turn off script and renderer if health is zero
+        if(health <= 0)
+        {
+            enabled = false;
+            foreach(MeshRenderer r in myMeshRenderers)
+            {
+                r.enabled = false;
+            }
+        }
+
         if(inputEnabled)
         {
             Look();
